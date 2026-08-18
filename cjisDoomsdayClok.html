@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CJIS 6.1 Deadline</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:ital,wght@1,900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #020503;
+            color: #d0e1d4;
+            font-family: 'Share Tech Mono', monospace;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Ominous dark green smoky background effect */
+        .background-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(10, 60, 30, 0.25) 0%, rgba(2, 5, 3, 0.98) 75%);
+            z-index: 1;
+            animation: pulse-glow 8s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 0.9; transform: scale(1.06); }
+        }
+
+        /* Massive transparent background watermark text */
+        .bg-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 110vw;
+            font-family: 'Cinzel', serif;
+            font-style: italic;
+            font-weight: 900;
+            font-size: clamp(8rem, 25vw, 32rem);
+            text-align: center;
+            color: rgba(20, 83, 45, 0.08);
+            text-shadow: 0 0 50px rgba(74, 222, 128, 0.03);
+            z-index: 1;
+            pointer-events: none;
+            letter-spacing: 0.05em;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            max-width: 1100px;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-style: italic;
+            font-weight: 900;
+            font-size: clamp(2rem, 4.5vw, 4rem);
+            letter-spacing: 4px;
+            color: #4ade80;
+            text-shadow: 0 0 15px rgba(74, 222, 128, 0.5), 0 0 35px rgba(20, 83, 45, 0.6);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        /* Seamless Countdown layout without boxes */
+        .timer-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(0.5rem, 2vw, 1.5rem);
+            flex-wrap: nowrap;
+        }
+
+        .time-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .time-value-container {
+            position: relative;
+            height: clamp(2.5rem, 5vw, 4.5rem);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .time-value {
+            font-size: clamp(2.2rem, 4.5vw, 4.2rem);
+            font-weight: bold;
+            color: #f0fdf4;
+            text-shadow: 0 0 12px rgba(74, 222, 128, 0.5);
+            line-height: 1;
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Scroll down animation classes */
+        .time-value.slide-out {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+
+        .time-value.slide-in {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        .time-label {
+            font-size: clamp(0.6rem, 1.2vw, 0.85rem);
+            color: #6ee7b7;
+            letter-spacing: 2px;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .separator {
+            font-size: clamp(2.2rem, 4.5vw, 4.2rem);
+            font-weight: bold;
+            color: #4ade80;
+            text-shadow: 0 0 12px rgba(74, 222, 128, 0.5);
+            padding-bottom: 1.5rem;
+            animation: pulse-colon 2s infinite;
+        }
+
+        @keyframes pulse-colon {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .timer-row {
+                gap: 0.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-glow"></div>
+    <div class="bg-watermark">CJIS</div>
+
+    <div class="container">
+        <h1>CJIS 6.1 Deadline</h1>
+        <div class="timer-row">
+            <div class="time-group">
+                <div class="time-value-container">
+                    <div id="months" class="time-value">00</div>
+                </div>
+                <div class="time-label">Months</div>
+            </div>
+            <div class="separator">:</div>
+            <div class="time-group">
+                <div class="time-value-container">
+                    <div id="days" class="time-value">00</div>
+                </div>
+                <div class="time-label">Days</div>
+            </div>
+            <div class="separator">:</div>
+            <div class="time-group">
+                <div class="time-value-container">
+                    <div id="hours" class="time-value">00</div>
+                </div>
+                <div class="time-label">Hours</div>
+            </div>
+            <div class="separator">:</div>
+            <div class="time-group">
+                <div class="time-value-container">
+                    <div id="minutes" class="time-value">00</div>
+                </div>
+                <div class="time-label">Minutes</div>
+            </div>
+            <div class="separator">:</div>
+            <div class="time-group">
+                <div class="time-value-container">
+                    <div id="seconds" class="time-value">00</div>
+                </div>
+                <div class="time-label">Seconds</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Local WAV audio sources (ensure tick.wav and tock.wav are in the same folder as this HTML file) -->
+    <audio id="tickAudio" src="doom-tick.wav" preload="auto"></audio>
+    <audio id="tockAudio" src="doom-tock.wav" preload="auto"></audio>
+
+    <script>
+        const targetDate = new Date(2027, 2, 31, 0, 0, 0).getTime();
+        let previousValues = {};
+        let tickToggle = false;
+
+        function playAlternatingSound() {
+            const tick = document.getElementById('tickAudio');
+            const tock = document.getElementById('tockAudio');
+
+            if (tickToggle) {
+                tick.currentTime = 0;
+                tick.play().catch(() => {});
+            } else {
+                tock.currentTime = 0;
+                tock.play().catch(() => {});
+            }
+            tickToggle = !tickToggle;
+        }
+
+        function updateValueWithAnim(elementId, newValue) {
+            const el = document.getElementById(elementId);
+            const formattedVal = String(newValue).padStart(2, '0');
+            
+            if (previousValues[elementId] !== undefined && previousValues[elementId] !== formattedVal) {
+                el.classList.add('slide-out');
+                setTimeout(() => {
+                    el.innerText = formattedVal;
+                    el.classList.remove('slide-out');
+                    el.classList.add('slide-in');
+                    setTimeout(() => {
+                        el.classList.remove('slide-in');
+                    }, 50);
+                }, 200);
+            } else if (previousValues[elementId] === undefined) {
+                el.innerText = formattedVal;
+            }
+            previousValues[elementId] = formattedVal;
+        }
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            let difference = targetDate - now;
+
+            if (difference <= 0) {
+                ['months', 'days', 'hours', 'minutes', 'seconds'].forEach(id => updateValueWithAnim(id, 0));
+                return;
+            }
+
+            playAlternatingSound();
+
+            const currentDate = new Date(now);
+            const targetObj = new Date(targetDate);
+
+            let months = (targetObj.getFullYear() - currentDate.getFullYear()) * 12 + (targetObj.getMonth() - currentDate.getMonth());
+            let tempDate = new Date(currentDate);
+            tempDate.setMonth(tempDate.getMonth() + months);
+
+            if (tempDate.getTime() > targetObj.getTime()) {
+                months--;
+                tempDate = new Date(currentDate);
+                tempDate.setMonth(tempDate.getMonth() + months);
+            }
+
+            let remTime = targetObj.getTime() - tempDate.getTime();
+            const days = Math.floor(remTime / (1000 * 60 * 60 * 24));
+            remTime %= (1000 * 60 * 60 * 24);
+            const hours = Math.floor(remTime / (1000 * 60 * 60));
+            remTime %= (1000 * 60 * 60);
+            const minutes = Math.floor(remTime / (1000 * 60));
+            const seconds = Math.floor((remTime % (1000 * 60)) / 1000);
+
+            updateValueWithAnim('months', months);
+            updateValueWithAnim('days', days);
+            updateValueWithAnim('hours', hours);
+            updateValueWithAnim('minutes', minutes);
+            updateValueWithAnim('seconds', seconds);
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
